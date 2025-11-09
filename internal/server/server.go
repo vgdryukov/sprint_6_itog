@@ -16,7 +16,7 @@ type Server struct {
 
 func NewServer(logger *log.Logger) *Server {
 	// Создаем сервис и хендлеры
-	svc := service.NewService()
+	svc := service.NewService(logger)
 	handler := handlers.NewHandler(svc)
 
 	// Создаем роутер
