@@ -1,13 +1,10 @@
 package handlers
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 	"sprint_6_itog/internal/service"
-	"time"
 )
 
 type Handler struct {
@@ -65,6 +62,12 @@ func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 
+	// Проверяем, что файл не пустой
+	if header.Size == 0 {
+		http.Error(w, "File is empty", http.StatusBadRequest)
+		return
+	}
+
 	// Читаем данные из файла
 	fileData, err := io.ReadAll(file)
 	if err != nil {
@@ -80,7 +83,7 @@ func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Создаем локальный файл для результата
-	timestamp := time.Now().UTC().Format("2006-01-02_15-04-05")
+	/*timestamp := time.Now().UTC().Format("2006-01-02_15-04-05")
 	originalExt := filepath.Ext(header.Filename)
 	outputFilename := fmt.Sprintf("result_%s%s", timestamp, originalExt)
 
@@ -96,7 +99,7 @@ func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Unable to write to output file", http.StatusInternalServerError)
 		return
-	}
+	}*/
 
 	// Возвращаем результат конвертации
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
