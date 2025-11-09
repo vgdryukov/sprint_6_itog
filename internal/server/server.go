@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"internal/handlers"
-	"internal/service"
+	"sprint_6_itog/internal/handlers"
+	"sprint_6_itog/internal/service"
 )
 
 type Server struct {

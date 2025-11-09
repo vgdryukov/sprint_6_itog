@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"internal/server"
+	"sprint_6_itog/internal/server"
 )
 
 func main() {

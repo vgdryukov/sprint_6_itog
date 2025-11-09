@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 	"log"
-	"pkg/morse"
+	"sprint_6_itog/pkg/morse"
 	"strings"
 	"unicode"
 )

@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"fmt"
-	"internal/service"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"sprint_6_itog/internal/service"
 	"time"
 )
 
