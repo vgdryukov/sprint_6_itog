@@ -17,7 +17,7 @@ func NewHandler(service *service.Service) *Handler {
 	}
 }
 
-// RootHandler обрабатывает корневой эндпоинт /
+// Функция обрабатывает корневой эндпоинт <</>>
 func (h *Handler) RootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -29,7 +29,7 @@ func (h *Handler) RootHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Читаем и отдаем index.html
+	// Читаем index.html
 	html, err := os.ReadFile("index.html")
 	if err != nil {
 		http.Error(w, "Could not read index.html", http.StatusInternalServerError)
@@ -40,7 +40,7 @@ func (h *Handler) RootHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(html)
 }
 
-// UploadHandler обрабатывает эндпоинт /upload
+// Функция обрабатывает эндпоинт <</upload>>
 func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

@@ -15,7 +15,7 @@ type Server struct {
 }
 
 func NewServer(logger *log.Logger) *Server {
-	// Создаем сервис и хендлеры
+
 	svc := service.NewService(logger)
 	handler := handlers.NewHandler(svc)
 
@@ -40,7 +40,6 @@ func NewServer(logger *log.Logger) *Server {
 	}
 }
 
-// Start запускает сервер
 func (s *Server) Start() error {
 	s.logger.Printf("Starting server on %s", s.server.Addr)
 	return s.server.ListenAndServe()

@@ -30,7 +30,7 @@ func NewService(logger *log.Logger) *Service {
 	}
 }
 
-// DefiningContentType определяет тип входящей строки - кириллица или азбука Морзе
+// Функция определяет тип входящей строки - кириллица или азбука Морзе
 func (s *Service) DefiningContentType(input string) (string, error) {
 	if input == "" {
 		return "", errors.New("input string is empty")
@@ -56,7 +56,7 @@ func (s *Service) DefiningContentType(input string) (string, error) {
 	}
 }
 
-// isMorseCode проверяет, является ли строка кодом Морзе
+// Функция проверяет, является ли строка кодом Морзе
 func (s *Service) isMorseCode(input string) bool {
 	morseCharCount := 0
 	totalChars := 0
@@ -91,7 +91,7 @@ func (s *Service) isMorseCode(input string) bool {
 	return true
 }
 
-// isValidMorseWord проверяет валидность отдельного слова в морзе-коде
+// Функция проверяет на валидность отдельного слова в морзе-коде
 func (s *Service) isValidMorseWord(word string) bool {
 	if len(word) == 0 || len(word) > 6 {
 		return false
@@ -111,7 +111,7 @@ func (s *Service) isValidMorseWord(word string) bool {
 	return hasDot || hasDash
 }
 
-// isCyrillicText проверяет, является ли строка текстом на кириллице
+// Функция проверяет, является ли строка текстом на кириллице
 func (s *Service) isCyrillicText(input string) bool {
 	cyrillicCount := 0
 	letterCount := 0
@@ -142,16 +142,18 @@ func (s *Service) isCyrillicText(input string) bool {
 	return float64(cyrillicCount)/float64(letterCount) >= 0.8
 }
 
+// Функция автоопределения типа входящей строки - кириллица или азбука Морзе,
+// после чего запускается перекодирование из одного типа в другой
 func (s *Service) AutoDetectAndConvert(input string) (string, error) {
 	if s.logger != nil {
 		s.logger.Printf("Processing input, length: %d", len(input))
 	}
 
 	if len(input) < s.config.MinInputLength {
-		return "", errors.New("input too short")
+		return "", errors.New("input line is too short")
 	}
 	if len(input) > s.config.MaxInputLength {
-		return "", errors.New("input too long")
+		return "", errors.New("input line is too long")
 	}
 
 	contentType, err := s.DefiningContentType(input)
