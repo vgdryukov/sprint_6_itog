@@ -143,12 +143,10 @@ func (s *Service) isCyrillicText(input string) bool {
 }
 
 func (s *Service) AutoDetectAndConvert(input string) (string, error) {
-	// Логирование
 	if s.logger != nil {
 		s.logger.Printf("Processing input, length: %d", len(input))
 	}
 
-	// Валидация длины
 	if len(input) < s.config.MinInputLength {
 		return "", errors.New("input too short")
 	}
@@ -156,7 +154,6 @@ func (s *Service) AutoDetectAndConvert(input string) (string, error) {
 		return "", errors.New("input too long")
 	}
 
-	// Определение типа и конвертация
 	contentType, err := s.DefiningContentType(input)
 	if err != nil {
 		return "", err
@@ -164,9 +161,17 @@ func (s *Service) AutoDetectAndConvert(input string) (string, error) {
 
 	switch contentType {
 	case "Cyrillic":
-		return morse.ToMorse(input), nil
+		result := morse.ToMorse(input)
+		if result == "" {
+			return "", errors.New("conversion to morse failed")
+		}
+		return result, nil
 	case "Morse":
-		return morse.ToText(input), nil
+		result := morse.ToText(input)
+		if result == "" {
+			return "", errors.New("conversion to text failed")
+		}
+		return result, nil
 	default:
 		return "", errors.New("unsupported content type")
 	}

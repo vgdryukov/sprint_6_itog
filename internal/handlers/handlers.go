@@ -55,7 +55,7 @@ func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Получаем файл из формы
-	file, header, err := r.FormFile("file")
+	file, header, err := r.FormFile("myFile")
 	if err != nil {
 		http.Error(w, "Unable to get file from form", http.StatusInternalServerError)
 		return
@@ -81,25 +81,6 @@ func (h *Handler) UploadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Conversion error", http.StatusInternalServerError)
 		return
 	}
-
-	// Создаем локальный файл для результата
-	/*timestamp := time.Now().UTC().Format("2006-01-02_15-04-05")
-	originalExt := filepath.Ext(header.Filename)
-	outputFilename := fmt.Sprintf("result_%s%s", timestamp, originalExt)
-
-	outputFile, err := os.Create(outputFilename)
-	if err != nil {
-		http.Error(w, "Unable to create output file", http.StatusInternalServerError)
-		return
-	}
-	defer outputFile.Close()
-
-	// Записываем результат конвертации в файл
-	_, err = outputFile.WriteString(convertedString)
-	if err != nil {
-		http.Error(w, "Unable to write to output file", http.StatusInternalServerError)
-		return
-	}*/
 
 	// Возвращаем результат конвертации
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
